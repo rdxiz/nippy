@@ -1,0 +1,112 @@
+{% extends "studio/studio.html" %}
+{% block layout_content %}
+
+<div class="app-header">
+    <div class="top">
+        <h3>
+            Uploads
+        </h3>
+        <div class="nav">
+            <form action="{% url 'core:my_videos' %}" method="get">
+                <input type="text" name="q" id="q" placeholder="Search uploads" value="{{ request.GET.q }}">
+                <button class="btn secondary">
+                    <span class="icon search"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div>
+        <input type="checkbox" value="0"> 
+        {{ studio_form.actions }}
+        {{ studio_form.playlists }}
+    </div>
+</div>
+
+<div id="videos-list-v">
+    {% for video in videos %}
+    
+    <div class="video-container" data-id="{{ video.get_id }}">
+        
+        <div class="video-thumb-container">
+            <input type="checkbox" value="0">
+            <a href="{% url 'core:watch' %}?v={{ video.get_id }}">
+                <div class="video-thumb">
+                    <img src="{% fallback_thumb video.thumbnail %}">
+                    <div class="overlay">
+                        <span class="video-time">{{ video.duration|format_duration }}</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="video-info">
+            <span class="title">
+                {{ video.title }}
+
+                
+            </span>
+            
+            <div class="video-metadata">
+
+                <span class="video-created-at">
+                    {% if video.status == VideoStatus.PROCESSING %}
+                        Processing {{ video.progress }}%
+                    {% else %}
+
+                        {{ video.get_status_display }}
+                        <span class="metadata-separator">•</span>
+                        {{ video.created_at }}
+                    {% endif %}
+                    
+                </span>
+            </div>
+            
+            <div class="video-options">
+                <span class="btn secondary">
+                    <a href="{% url 'core:video_edit' video_id=video.get_id %}" class="btn-inside">Edit</a>
+                </span>
+            </div>
+        </div>
+        <div class="video-stats">
+            
+            <div>
+                <span class="icon world"></span> {{ video.get_visibility_display }}
+            </div>
+            <div>
+                <span class="icon graph"></span> {{ video.views }}
+            </div>
+            <div>
+                <span class="icon like"></span> {{ video.positive_ratings }}
+                &nbsp; &nbsp;
+                <span class="icon dislike"></span> {{ video.negative_ratings }}
+            </div>
+            <div>
+                <span class="icon comment"></span> {{ video.comments_count }}
+            </div>
+            
+
+        </div>
+    </div>
+    {% empty %}
+    <div class="placeholder-container">
+        <span><a href="{% url 'core:my_videos_upload' %}">Upload</a> a new video and view your uploads here</span>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    <span>1-10 of 21</span>
+    <button class="btn secondary">
+        <span class="icon skip-previous"></span>
+    </button>
+    <button class="btn secondary">
+        <span class="icon navigate-previous"></span>
+    </button>
+    <button class="btn secondary">
+        <span class="icon navigate-next"></span>
+    </button>
+    <button class="btn secondary">
+        <span class="icon skip-next"></span>
+    </button>
+</div>
+{% endblock %}

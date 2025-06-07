@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="main">
+    <div class="grid-layout studio">
+        {% with url_name=request.resolver_match.url_name %}
+        <section class="guide">
+            <h3 data-link="nav-account-settings" data-sync{% if account_settings %} data-switch{% endif %}>
+                
+                <span>Account settings</span>
+                <span class="dropdown-container">
+                    <span class="icon dropdown-arrow"></span>
+                </span>
+            </h3>
+            <nav id="nav-account-settings"{% if account_settings %} data-switch{% endif %}>
+                <ul>
+                    <a href="{% url 'core:my_account' %}">
+                        
+                        <div class="guide-item{% if url_name == 'my_account' %}-primary{% endif %}">
+                            <span>Overview</span>
+                        </div>
+                    </a>
+                </ul>
+
+                
+            </nav>
+            <h3 data-link="nav-video-manager" data-sync{% if video_manager %} data-switch{% endif %}>
+                <span>Video manager</span>
+                <span class="dropdown-container">
+                    <span class="icon dropdown-arrow"></span>
+                </span>
+            </h3>
+            <nav id="nav-video-manager"{% if video_manager %} data-switch{% endif %}>
+                <ul>
+                    <a href="#">
+                        <div class="guide-item">
+                            <span>Dashboard</span>
+                        </div>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'core:my_videos' %}">
+                        <div class="guide-item{% if url_name in "my_videos,video_edit" %}-primary{% endif %}">
+                            <span>Uploads</span>
+                        </div>
+                        
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'core:my_playlists' %}">
+                        <div class="guide-item{% if url_name in "my_playlists,playlist_edit" %}-primary{% endif %}">
+                            <span>Playlists</span>
+                        </div>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="#">
+                        <div class="guide-item">
+                            <span>History</span>
+                        </div>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="#">
+                        <div class="guide-item">
+                            <span>Search History</span>
+                        </div>
+                    </a>
+                </ul>
+                
+                <ul>
+                    <a href="#">
+                        <div class="guide-item">
+                            <span>Watch Later</span>
+                        </div>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="#">
+                        <div class="guide-item">
+                            <span>Favorites</span>
+                        </div>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="#">
+                        <div class="guide-item">
+                            <span>Likes</span>
+                        </div>
+                    </a>
+                </ul>
+                
+            </nav>
+        </section>
+        {% endwith %}
+        <section class="content">
+            {% block layout_content %}{% endblock %}
+        </section>
+    </div>
+</main>
+{% endblock %}

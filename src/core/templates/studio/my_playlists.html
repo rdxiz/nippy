@@ -1,0 +1,58 @@
+{% extends "studio/studio.html" %}
+{% block layout_content %}
+<div class="app-header">
+    <div class="top">
+        <h3>
+            Playlists
+        </h3>
+        <div class="nav">
+            <form method="get">
+                <input type="text" name="q" id="q" placeholder="Search playlists" value="{{ request.GET.q }}">
+                <button class="btn secondary">
+                    <span class="icon search"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div>
+        <input type="checkbox" value="0"> 
+        {{ studio_form.actions }}
+        {{ studio_form.playlists }}
+    </div>
+</div>
+
+<div id="videos-list-v">
+    {% for playlist in playlists %}
+
+    <div class="video-container">
+        <div class="video-thumb-container">
+            <input type="checkbox" value="0">
+            <a href="/playlist/{{ playlist.get_id }}">
+                <div class="video-thumb">
+                    <img src="{% fallback_thumb playlist.thumbnail%}">
+                </div>
+            </a>
+        </div>
+        <div class="video-info">
+            <span class="title">
+                {% if playlist.type == PlaylistType.CUSTOM %}
+                    {{ playlist.title }}
+                {% else %}
+                    {{ playlist.get_type_display }}
+                {% endif %}
+            </span>
+            <div class="video-metadata">
+                <span class="video-created-at">{{ playlist.created_at }}</span>
+            </div>
+            <div class="video-options">
+                <span class="btn secondary">
+                    <a href="{% url 'core:playlist_edit' playlist_id=playlist.get_id %}" class="btn-inside">Edit</a>
+                </span>
+            </div>
+            
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

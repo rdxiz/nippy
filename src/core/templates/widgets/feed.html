@@ -1,0 +1,68 @@
+{% for post in posts %}
+<div class="item" data-id="{{ post.id }}">
+    {% if post.author.record_id == request.profile.record_id %}
+    <div class="context-menu" data-hidden>
+        <ul>
+            <li data-delete>Delete</li>
+        </ul>
+    </div>
+    <div class="options">
+        <button class="btn-menu"><span class="icon circle-drop"></span></button>
+    </div>
+    {% endif %}
+    
+    
+    <div class="header">
+        <a href="{{ post.author.get_url }}" class="link">
+            <div class="bubble">
+                <img src="{{ post.author|avatar:100 }}" width="28">
+                <span class="overlay"></span>
+            </div>
+        </a>
+        <div class="container">
+            <a href="{{ post.author.get_url }}">{{ post.author.name }}</a>
+             <span>{{ post.text|yesno:'posted,uploaded' }}</span> 
+             <span class="timestamp">{{ post.created_at|time_ago }}</span>
+        </div>
+
+    </div>
+    
+    <div class="content">
+        {% if post.text %}
+        {{ post.text|urlizetrunc:20|linebreaks }}
+        {% endif %}
+
+        {% if post.video %}
+        
+        <div class="video-container">
+            <div class="video-thumb-container">
+                <a href="{% url 'core:watch' %}?v={{ post.video.get_id }}">
+                    <div class="video-thumb">
+                        <img src="{% fallback_thumb post.video.thumbnail %}">
+                        <div class="overlay">
+                            <span class="video-time">{{ post.video.duration|format_duration }}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="video-info">
+    
+                <a href="{% url 'core:watch' %}?v={{ post.video.get_id }}" class="title">
+                    {{ post.video.title }}
+                </a>
+    
+                <span class="video-views">{{ post.video.views|intcomma }} views</span>
+                {% if post.video.short_description %}<span class="video-description">{{ post.video.short_description }}</span>{% endif %}
+            </div>
+        </div>
+        
+        {% endif %}
+        
+    </div>
+
+    
+</div>
+
+{% endfor %}
+<script src="{% static 'js/feed.js' %}?78"></script>
+<style onload="feedLoader();"></style>

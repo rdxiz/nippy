@@ -1,0 +1,10 @@
+{% for video in related_videos %}
+        <a href="{% url 'core:watch' %}?v={{ video.get_id }}" style="animation-delay: .{{ forloop.counter }}s">
+            <div class="video-thumb">
+                <img src="{% fallback_thumb video.thumbnail%}">
+                <div class="overlay">
+                    <span class="video-time">{{ video.duration|format_duration }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}

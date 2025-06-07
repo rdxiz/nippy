@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+{% if modal %}
+<div class="modal">
+    <div class="content">
+        <form enctype="multipart/form-data" action="" method="post">
+            {% csrf_token %}
+            <header>
+                <h1>Create a new channel</h1>
+                <a href="{% url 'core:index' %}" class="close">&times;</a>
+            </header>
+            <section class="content">
+                    {% for field in form %}
+                    <div>
+                        {{ field.label_tag }} {{ field }}
+                        {{ field.errors }}
+                    </div>
+                    {% endfor %}
+            </section>
+            <section class="options">
+                <button class="btn primary">Create</button>
+            </section>
+        </form>
+    </div>
+</div>  
+{% endif %}
+
+<main class="profile-switcher">
+    <header>
+        <h1>Use {{ app_name }} as...</h1>
+        <nav>
+            <ul>
+                <span class="btn primary"><a href="?create=1" class="btn-inside">Create a new channel</a>
+            </ul>
+        </nav>
+    </header>
+    <div>
+        <h2>My channels</h2>
+        <div class="profile-grid">
+            {% for profile in profiles %}
+                <a href="?c={{profile.record_id}}">
+                    <div> 
+                        <img src="{{ profile|avatar:100 }}" width="48" height="48">
+                        <div class="profile-info">
+                            <span class="name">{{ profile.name }}</span>
+                            <span>{{ profile.followers_count }} followers</span>
+                        </div>
+                        
+                    </div>
+                </a>
+        {% endfor %}
+        </div>
+        
+    </div>
+</main>
+{% endblock %}

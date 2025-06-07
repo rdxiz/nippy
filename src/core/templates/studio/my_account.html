@@ -1,0 +1,43 @@
+{% extends "studio/studio.html" %}
+{% block layout_content %}
+<div class="app-header">
+    <div class="top">
+        <h3>
+            Overview
+        </h3>
+        <div class="nav">
+            
+        </div>
+    </div>
+</div>
+<div class="app-content">
+    <section>
+        <h3>Account information</h3>
+        <div class="settings-section">
+            <div class="title">Username</div> 
+            <div>
+                <b>{{ request.user.username }}</b>
+                <br>Joined {{ request.user.date_joined }}
+            </div>
+        </div>
+        <div class="settings-section">
+            <div class="title">Password</div> 
+            <div>
+                <a href="#">Change password</a>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h3>Channel information</h3>
+        <div class="settings-section">
+            <div class="title">Name</div> 
+            <div class="h-container">
+                <img width="75" src="{{ request.profile|avatar:100 }}">
+                <div><b>{{ request.profile.name }}</b><br><a href="#">Advanced</a></div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% endblock %}

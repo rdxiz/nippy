@@ -1,0 +1,113 @@
+{% with url_name=request.resolver_match.url_name %}
+<section class="guide">
+    {% if request.profile %}
+    <nav>
+        <ul>
+            <a href="{{ request.profile.get_url }}">
+                <div class="guide-item{% if my_profile %}-primary{% endif %}">
+                    <div class="drop-shadow-filter">
+                        <span class="icon account"></span>
+                    </div>
+                    <span>{{ request.profile.name }}</span>
+
+                </div>
+                
+            </a>                    
+            <a href="#">
+                <div class="guide-item">
+                    <div class="drop-shadow-filter">
+                        <span class="icon history"></span>
+                    </div>
+                    <span>Watch History</span>
+                </div>
+            </a>
+        </ul>
+    </nav>
+    <hr>
+    <nav>
+        <ul>
+            
+            <a href="/">
+                <div class="guide-item{% if url_name == 'index' %}-primary{% endif %}">
+                    <div class="drop-shadow-filter">
+                        <span class="icon playlist"></span>
+                    </div>
+                    <span>What to watch</span>
+                </div>
+            </a>
+                                
+            <a href="{% url 'core:subscriptions' %}">
+                <div class="guide-item{% if url_name == 'subscriptions' %}-primary{% endif %}">
+                    <div class="drop-shadow-filter">
+                        <span class="icon multiple-accounts"></span>
+                    </div>
+                    <span>My subscriptions</span>
+                    <span class="count">
+                        {% if request.profile.following_count < 100 %}
+                            {{ request.profile.following_count }}
+                        {% else %}
+                            +99
+                        {% endif %}
+                    </span>
+                </div>
+            </a>
+            <a href="{% url 'core:view_explore' %}">
+                <div class="guide-item{% if url_name == 'view_explore' %}-primary{% endif %}">
+                    <div class="drop-shadow-filter">
+                        <span class="icon channel"></span>
+                    </div>
+                    <span>Explore</span>
+                </div>
+            </a>
+        </ul>
+    </nav>
+    <hr>
+    <h3>Subscriptions</h3>
+    <nav>
+        {% for subs in subscriptions %}
+            {% with profile=subs.following %}
+            <ul>
+                <a href="{{ profile.get_url }}">
+                    <div class="guide-item">
+                        <img src="{{ profile|avatar:100 }}" width="18">
+                        <span>{{ profile.name }}</span>
+
+                    </div>
+                </a>
+            </ul>
+            {% endwith %}
+        {% endfor %}
+    </nav>
+    {% else %}
+    <nav>
+        <ul>
+            <a href="/">
+                <div class="guide-item{% if url_name == 'index' %}-primary{% endif %}">
+                    <div class="drop-shadow-filter">
+                        <span class="icon home"></span>
+                    </div>
+                    
+                    <span>Home</span>
+
+                </div>
+            </a>
+        </ul>
+    </nav>
+    <hr>
+    <h3>Channels for you</h3>
+    <nav>
+        {% for profile in recommended_profiles %}
+        <ul>
+            <a href="{{ profile.get_url }}">
+                <div class="guide-item">
+                    <img src="{{ profile|avatar:100 }}" width="18">
+                    <span>{{ profile.name }}</span>
+
+                </div>
+            </a>
+        </ul>
+        {% endfor %}
+    </nav>
+    {% endif %}
+</section>
+{% endwith %}

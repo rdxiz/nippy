@@ -1,0 +1,84 @@
+<form method="post" id="video-upload-form">
+    {% csrf_token %}
+    {{ form.thumbnail }}
+    <div class="tabs">
+        <div class="tab-button{% if tab == 0 %} selected{% endif %}" id="btn-basic-info">
+            Basic info
+        </div>
+        <div class="tab-button{% if tab == 1 %} selected{% endif %}" id="btn-advanced-settings">
+            Advanced settings
+        </div>
+    </div>
+    <div class="tab-switcher">
+        {{ form.non_field_errors }}
+        <div id="basic-info"{% if tab == 0 %} class="grid"{% endif %}>
+            <div class="settings">
+                <div>
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+                <div>
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    {{ form.description.errors }}
+                </div>
+                <div>
+                    {{ form.tags.label_tag }}
+                    {{ form.tags }}
+                    {{ form.tags.errors }}
+                </div>
+                <div>
+                    <label for="video-tags">Video thumbnails</label>
+                    <div id="video-thumbs">
+                        <div id="video-thumbs-list">
+                            <img id="thumb-item-0" src="{% static 'img/vi/default.jpg' %}" data-selected="">
+                            <img id="thumb-item-1" src="{% static 'img/vi/default.jpg' %}">
+                            <img id="thumb-item-2" src="{% static 'img/vi/default.jpg' %}">
+                        </div>
+                    </div>
+                    <div id="video-thumbs-empty">
+                        Thumbnail selections will appear when the video has finished processing.
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="side-settings">
+                <div>
+                    {{ form.visibility.label_tag }}
+                    {{ form.visibility }}
+                    {{ form.visibility.errors }}
+                    <span class="hint"></span>
+                </div>
+                <div>
+                    {{ form.category.label_tag }}
+                    {{ form.category }}
+                    {{ form.category.errors }}
+                    <span class="hint"></span>
+                </div>
+                
+                <div>
+                    {{ form.language.label_tag }}
+                    {{ form.language }}
+                    {{ form.language.errors }}
+                    <span class="hint"></span>
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="advanced-settings"{% if tab == 1 %} class="grid"{% endif %}>
+            <div class="settings">
+                <div>
+                    {{ form.comments_options.label_tag }}
+                    {{ form.comments_options }}
+                    {{ form.comments_options.errors }}
+                </div>
+                
+            </div>
+            <div class="side-settings">
+                <!-- another side -->
+            </div>
+        </div>
+    </div>
+</form>

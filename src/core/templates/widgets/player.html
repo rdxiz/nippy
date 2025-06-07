@@ -1,0 +1,44 @@
+
+<div id="nippy-vp">
+    <div id="nippy-vp-context-menu" class="context-menu" data-hidden>
+        <ul>
+            <li id="menu-item-1">About the HTML5 player</li>
+        </ul>
+    </div>
+    <div id="nippy-vp-container">
+        <video 
+            playsinline 
+            {% if autoplay %}
+                autoplay
+            {% endif %} 
+            id="video-player" 
+            class="video-js vjs-theme-nippy" 
+            controls preload="auto" 
+            poster="{% fallback_thumb video.thumbnail %}"
+            data-setup='{"playbackRates": [0.5,0.75, 1, 1.25,1.5, 2], "fluid":true}'>
+            {% if video.file %}
+            <source src="{{ video.file.url }}" type="video/mp4" />
+            {% endif %}
+
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+            <span id="nippy-vp-data"
+                data-id="{{ video.get_id }}" 
+                data-title="{{ video.title }}" 
+                data-status="{{ video.status }}" 
+                data-iframe="{{ iframe|yesno:'true,false' }}">
+            </span>
+            
+        </video>
+        
+    </div>
+    
+    <script>document.getElementById('nippy-vp-container').style.visibility = 'hidden'; window.HELP_IMPROVE_VIDEOJS = false;</script>
+    <script defer src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+    <script defer src="{% static 'js/player.js' %}?78"></script>
+    
+
+</div>

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="main">
+    {% autoescape off %}<section id="upload-app" data-max-video-size="{{ max_video_size }}" data-chunk-size="{{ chunk_size }}" data-allowed-video-types="{{ allowed_video_types }}">{% endautoescape %}
+        <div id="upload-file-picker">
+            <div id="upload-form">
+                <div id="drag-to-upload">
+                    <div class="drag-info">
+                        <input type="file" id="file-input" style="display: none;">
+                        <span id="upload-arrow"></span>
+                        <h2>Select files to upload</h2>
+                        <h3>Or drag and drop video files</h3>
+                        <div class="privacy">
+                            <b>Privacy:</b>{{ drop_form.visibility }}
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    You must own the copyright of the videos you're uploading and follow the Community Guidelines. <a href="learn">Learn more</a>.
+                </p>
+
+            </div>
+            <aside>
+                
+                <b>Uploader specifications</b>
+                <ul>
+                    <li>
+                        Up to {{ max_video_size|filesizeformat }} in size! 
+                    </li>
+                    <li>
+                        Supports a variety of video formats!
+                    </li>
+                    <li>Up to {{ maximum_video_duration|timeformat }} in length!</li>
+                    <li>Any resolution is supported, however it will be displayed in 16:9.</li>
+                </ul>
+                <br>
+                
+                
+            </aside>
+        </div>
+
+        <div id="upload-info">
+            <div class="app-header">
+                <div>
+                    <h3 id="upload-title">Uploaded {cnt_vi} to {total_vi} videos</h3>
+                    <div class="nav">
+                        <span class="btn secondary">
+                            <a href="{% url 'core:my_videos' %}" rel="noreferrer" target="_noblank" class="btn-inside">Video Manager</a>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="content">
+                <div class="video-content">
+                    <div id="video-preview"><span class="icon loading-spinner"></span></div>
+                    <div class="video-info">
+                        <b id="video-title-text"></b>
+                        <span id="upload-cancel">Upload has been canceled.</span>
+                        <span id="starting-upload">Starting upload...</span>
+                        <span id="video-uploading">Uploading your video.</span>
+                        <span id="video-processing">Processing your video.</span>
+                        <span id="upload-complete">Upload complete!</span>
+                        <span id="video-retrying">Retrying...</span>
+                        <span id="upload-falied">Upload falied! <a href="{% url 'core:my_videos_upload' %}">Try again</a></span>
+                        <span id="video-too-long">Video is too long! <a href="{% url 'core:my_videos_upload' %}">Try again</a></span>
+                        <span id="video-live">Your video will be available at: <a href="" id="video-live-link" rel="noreferrer" target="_noblank"></a></span>
+
+                        <div id="upload-progress-bar">
+                            <span id="video-upload-percentage"></span>
+                            <div id="upload-progress-bar-inside"></div>
+                        </div>
+                    </div>
+                    <div class="options">
+                        <button id="btn-cancel" class="btn secondary">Cancel</button>
+                    </div>
+                </div>
+                <div id="video-panel">
+                    {% with tab=0 %}
+                        {% include 'widgets/forms/video_upload.html' %}
+                    {% endwith %}
+                </div>
+                <div id="changes">
+                    <div class="side">
+                        <span id="not-saved" class="text-error">Some changes are not yet saved.</span>
+                        <span id="all-changes-saved">All changes saved.</span>
+                        <span id="text-saved" class="hidden">Saved</span>
+                        <button id="btn-save-changes" class="btn primary">Save changes</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'js/uploader.js' %}?78" async></script>
+</main>
+{% endblock %}

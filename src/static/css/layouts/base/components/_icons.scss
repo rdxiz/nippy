@@ -1,0 +1,261 @@
+.icon {
+  display: inline-block;
+  color: inherit;
+  border: none;
+  font: inherit;
+  outline: inherit;
+  border: none;
+  vertical-align: middle;
+  &.loading-spinner {
+    width: 20px;
+    height: 20px;
+    background: url(../img/loading_spinner.gif)
+  }
+  &.circle-drop {
+    mask-size: cover;
+    mask-image: url(../svg/circle_drop.svg);
+    background: $color-gray;
+    width: 17px;
+    height: 17px;
+  }
+  &.home {
+    mask-size: cover;
+    mask-image: url(../svg/home.svg);
+    background: $color-white;
+    width: 14px;
+    height: 12px;
+  }
+  &.channel {
+    mask-size: cover;
+    mask-image: url(../svg/channel.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.account {
+    mask-size: cover;
+    mask-image: url(../svg/account.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.edit {
+    mask-size: cover;
+    mask-image: url(../svg/edit.svg);
+    background: $color-dark-light-2;
+    width: 14px;
+    height: 14px;
+  }
+  &.captions {
+    mask-size: cover;
+    mask-image: url(../svg/captions.svg);
+    background: $color-dark-light-2;
+    width: 14px;
+    height: 14px;
+  }
+  &.settings {
+    mask-size: cover;
+    mask-image: url(../svg/settings.svg);
+    background: $color-dark;
+    width: 14px;
+    height: 14px;
+  }
+  &.multiple-accounts {
+    mask-size: cover;
+    mask-image: url(../svg/multiple_accounts.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.history {
+    mask-size: cover;
+    mask-image: url(../svg/history.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.lookup {
+    mask-size: cover;
+    mask-image: url(../svg/lookup.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.world {
+    mask-size: cover;
+    mask-image: url(../svg/world.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.upload {
+    mask-size: cover;
+    mask-image: url(../svg/upload.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.forward {
+    mask-size: cover;
+    mask-image: url(../svg/forward.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.ondemand-video {
+    mask-size: cover;
+    mask-image: url(../svg/ondemand_video.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.playlist {
+    mask-size: cover;
+    mask-image: url(../svg/playlist.svg);
+    background: $color-white;
+    width: 14px;
+    height: 14px;
+  }
+  &.comment {
+    mask-size: cover;
+    mask-image: url(../svg/comment.svg);
+    background: $color-dark-light-3;
+    width: 14px;
+    height: 14px;
+  }
+  &.graph {
+    mask-size: cover;
+    mask-image: url(../svg/graph.svg);
+    background: $color-dark-light-3;
+    width: 14px;
+    height: 14px;
+  }
+  
+  &.dropdown-arrow {
+    height: 0;
+    width: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba($text-color, 0.5);
+    transition: transform .2s ease-in-out;
+  }
+  
+  &.like {
+      mask-size: cover;
+      mask-image: url(../svg/like.svg);
+      background: $color-medium-light;
+      width: 12px;
+      height: 12px;
+  
+  }
+  
+  &.dislike {
+    mask-size: cover;
+    mask-image: url(../svg/dislike.svg);
+    background: $color-medium-light;
+    width: 12px;
+    height: 12px;
+  }
+  
+  &.like-stats {
+    
+    mask-size: cover;
+    mask-image: url(../svg/like.svg);
+    background: $color-dark-light-3;
+    width: 11px;
+    height: 11px;
+  
+  }
+  
+  &.dislike-stats {
+    mask-size: cover;
+    mask-image: url(../svg/dislike.svg);
+    background: $color-dark-light-3;
+    width: 11px;
+    height: 11px;
+  }
+  &.navigate-next {
+    mask-size: cover;
+    mask-image: url(../svg/navigate_next.svg);
+    background: $color-dark-light-3;
+    width: 14px;
+  height: 18px;
+  }
+  &.navigate-previous {
+    mask-size: cover;
+    mask-image: url(../svg/navigate_previous.svg);
+    background: $color-dark-light-3;
+    width: 14px;
+  height: 18px;
+  }
+  &.skip-next {
+    mask-size: cover;
+    mask-image: url(../svg/skip_next.svg);
+    background: $color-dark-light-3;
+    width: 14px;
+  height: 18px;
+  }
+  &.skip-previous {
+    mask-size: cover;
+    mask-image: url(../svg/skip_previous.svg);
+    background: $color-dark-light-3;
+    width: 14px;
+  height: 18px;
+  }
+  
+  &.search {
+    width: 15px;
+    height: 15px;
+    opacity: .6;
+    mask-size: cover;
+    mask-image: url(../svg/search.svg);
+    background: #141414;
+    &:focus-within {
+      opacity: 1;
+    }
+  }
+  
+  
+  
+  &.home-feed {
+    background: no-repeat url(../img/www-channels-c4-vflghNwTI.png) -26px 0;
+    background-size: auto;
+    width: 22px;
+    height: 15px;
+  }
+  &.comments-disabled {
+    background: no-repeat url(../img/icon_comments_disabled.png);
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+  }
+  
+  &.arrow {
+    border: solid $text-color;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+  
+  &.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  &.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+}
+
+.placeholder-container {
+  text-align: center;
+  line-height: 20px;
+  color: $color-dark-light-3;
+  padding: 1em;
+  >span {
+    margin: 0 1px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

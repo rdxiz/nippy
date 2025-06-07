@@ -1,0 +1,52 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nippy-web:latest
+    command: gunicorn nippy.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./src:/opt/nippy/src
+      - ./public:/opt/nippy/public
+    ports:
+      - "8000:8000"
+    environment:
+      - "DEBUG=true"
+      - "DEFAULT_DB_NAME=nippy"
+      - "DEFAULT_DB_USER=nippy"
+      - "DEFAULT_DB_PWD=nippy"
+      - "DEFAULT_DB_HOST=db"
+      - "FFMPEG_PATH=/usr/bin/ffmpeg"
+      - "FFPROBE_PATH=/usr/bin/ffprobe"
+    depends_on:
+      - db
+
+  queue:
+    image: nippy-web:latest
+    command: python manage.py run_huey
+    volumes:
+      - ./src:/opt/nippy/src
+      - ./public:/opt/nippy/public
+    environment:
+      - "DEFAULT_DB_NAME=nippy"
+      - "DEFAULT_DB_USER=nippy"
+      - "DEFAULT_DB_PWD=nippy"
+      - "DEFAULT_DB_HOST=db"
+      - "FFMPEG_PATH=/usr/bin/ffmpeg"
+      - "FFPROBE_PATH=/usr/bin/ffprobe"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: nippy
+      POSTGRES_USER: nippy
+      POSTGRES_PASSWORD: nippy
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+volumes:
+  pgdata:
+  public:

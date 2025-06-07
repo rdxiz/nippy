@@ -1,0 +1,16 @@
+<form 
+    method="post" 
+    data-ajax="{% url 'core:new_post' %}" 
+    data-replace-on-error="posting-content" 
+    data-replace-on-success="feed"
+    data-clear-fields="1" 
+    onsubmit="__(event)">
+    {% csrf_token %}
+    {{ form.text }}
+    {{ form.text.errors }}
+    {{ form.link }}
+    {{ form.link.errors }}
+    <div class="posting-options">
+        <button class="btn primary">Post</button>
+    </div>
+</form>

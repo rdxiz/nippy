@@ -1,0 +1,25 @@
+
+<li>
+    <div class="profile">
+        <a href="{{ video.author.get_url }}">
+            <img src="{{ video.author|avatar:100 }}" width="48">
+
+        </a>
+    </div>
+    <div class="content">
+        <span class="metadata">
+            <a href="{{ video.author.get_url }}" class="author">{{ video.author.name }}</a>
+            <span class="created-at">{{ video.author.created_at|time_ago }}</span>
+        </span>
+        <span class="text">
+            test
+        </span>
+        <div class="actions">
+            <div class="rating">
+                <span class="comment-rating-positive">0</span>
+                <button class="icon like"></button>
+                <button class="icon dislike"></button>
+            </div>
+        </div>
+    </div>
+</li>

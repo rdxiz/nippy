@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="main">
+    <div class="grid-layout">
+        {% include 'widgets/guide.html' %}
+
+        <section class="content">
+            <div class="featured-section">
+                {% for video in featured_videos|slice:":1" %}
+                <div class="featured-video">
+                    <div class="video-container">
+                        <div class="video-thumb-container">
+                            <a href="{% url 'core:watch' %}?v={{ video.get_id }}">
+                                <div class="video-thumb">
+                                    <img src="{% fallback_thumb video.thumbnail%}">
+                                    <div class="overlay">
+                                        <span class="video-time">{{ video.duration|format_duration }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="video-info">
+
+                            <a href="{% url 'core:watch' %}?v={{ video.get_id }}" class="title">
+                                {{ video.title|truncatechars:58 }}
+                            </a>
+                            <div class="video-metadata">
+                                <span class="video-author">by <a href="{{ video.author.get_url }}">{{ video.author.name }}</a></span> 
+                                <span class="metadata-separator">•</span>
+                                <span class="video-views">{{ video.views|intcomma }} views</span>
+                                <span class="metadata-separator">•</span>
+                                <span class="video-created-at">{{ video.created_at|time_ago }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="featured-list">
+                    {% for video in featured_videos|slice:"1:4" %}
+                    <div class="video-container">
+                        <div class="video-thumb-container">
+                            <a href="{% url 'core:watch' %}?v={{ video.get_id }}">
+                                <div class="video-thumb">
+                                    <img src="{% fallback_thumb video.thumbnail%}">
+                                    <div class="overlay">
+                                        <span class="video-time">{{ video.duration|format_duration }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="video-info">
+
+                            <a href="{% url 'core:watch' %}?v={{ video.get_id }}" class="title">
+                                {{ video.title|truncatechars:58 }}
+                            </a>
+                            <div class="video-metadata">
+                                <span class="video-author">by <a href="{{ video.author.get_url }}">{{ video.author.name }}</a></span> 
+                                <br>
+                                <span class="video-views">{{ video.views|intcomma }} views</span>
+                                <span class="metadata-separator">•</span>
+                                <span class="video-created-at">{{ video.created_at|time_ago }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="video-section">
+                <header>
+                    <h3>Recent videos</h3>
+                </header>
+                <div class="video-list-container">
+                    <div class="videos-list-h" id="recent-list">
+                        {% for video in videos %}
+                        <div class="video-container">
+                            <div class="video-thumb-container">
+                                <a href="{% url 'core:watch' %}?v={{ video.get_id }}">
+                                    <div class="video-thumb">
+                                        <img src="{% fallback_thumb video.thumbnail%}">
+                                        <div class="overlay">
+                                            <span class="video-time">{{ video.duration|format_duration }}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="video-info">
+
+                                <a href="{% url 'core:watch' %}?v={{ video.get_id }}" class="title">
+                                    {{ video.title|truncatechars:58 }}
+                                </a>
+                                <div class="video-metadata">
+                                    <span class="video-views">{{ video.views|intcomma }} views</span>
+                                    <span class="metadata-separator">•</span>
+                                    <span class="video-created-at">{{ video.created_at|time_ago }}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="slider-left" onclick="s(event)" data-video-list="recent-list"
+                        data-direction="left"><span class='icon arrow left'></span></button>
+                    <button class="slider-right" onclick="s(event)" data-video-list="recent-list"
+                        data-direction="right"><span class='icon arrow right'></span></button>
+                </div>
+
+            </div>
+        </section>
+        <aside class="side">
+            <div class="blog-widget">
+                <span class="title">Nippy indev</span>
+                <p>Hi, we are currently testing and constantly updating Nippy, be patient. You can help uploading videos to the plataform!</p>
+            </div>
+        </aside>
+    </div>
+</main>
+{% endblock %}

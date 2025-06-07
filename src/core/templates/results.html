@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="main">
+    <div class="grid-layout">
+        {% include 'widgets/guide.html' %}
+        <section class="content">
+            <div id="videos-list-v">
+                {% for video in videos %}
+                <div class="video-container">
+                    <div class="video-thumb-container">
+                        <a href="{% url 'core:watch' %}?v={{ video.get_id }}">
+                            <div class="video-thumb">
+                                <img src="{% fallback_thumb video.thumbnail%}">
+                                <div class="overlay">
+                                    <span class="video-time">{{ video.duration|format_duration }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="video-info">
+                        <a href="{% url 'core:watch' %}?v={{ video.get_id }}" class="title">
+                            {{ video.title }}
+                        </a>
+                        <div class="video-metadata">
+                            <span class="video-author">by <a href="{{ video.author.get_url }}">{{ video.author.name }}</a></span> 
+                            <span class="metadata-separator">•</span>
+                            <span class="video-created-at">{{ video.created_at|time_ago }}</span>
+                            <span class="metadata-separator">•</span>
+                            <span class="video-views">{{ video.views|intcomma }} views</span>
+                        </div>
+                        {% if video.short_description %}<span class="video-description">{{ video.short_description }}</span>{% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="placeholder-container">
+                    <b>No results found</b><br>
+                    <span>Try different keywords or remove search filters</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        <aside class="side">
+        </aside>
+    </div>
+</main>
+{% endblock %}

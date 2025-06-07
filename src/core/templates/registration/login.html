@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="main" class="auth">
+    <form method="POST" onsubmit="_(event)">
+        
+        {% csrf_token %}
+        {{ form }}
+        Don't have an account? <a href="{% url 'core:signup' %}">Sign up</a><br><br>
+        <button>Sign in</button>  
+    
+    </form>
+
+</main>
+{% endblock %}

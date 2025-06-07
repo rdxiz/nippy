@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="main" class="auth">
+    <form method="POST" onsubmit="_(event)">
+        {% csrf_token %}
+        {{ form }}
+        <button>Sign up</button>
+    </form>
+</main>
+{% endblock %}
