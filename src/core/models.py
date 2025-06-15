@@ -1,4 +1,5 @@
 import functools
+import os
 from django.conf.global_settings import LANGUAGES
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -41,7 +42,7 @@ class Sequential(models.Model):
     pass
 
 
-SQUIDS_ALPHABET = "XnpeHockQZ-47I6gV0Cs_aAhjf1l9GqPutS2EFyM8YdTOULWJvxmKDNiBz3wR5br"
+SQUIDS_ALPHABET = os.environ.get("SQUIDS_ALPHABET", "XnpeHockQZ-47I6gV0Cs_aAhjf1l9GqPutS2EFyM8YdTOULWJvxmKDNiBz3wR5br")
 
 
 def gen_str_id(encoding=None, length=None):
@@ -299,46 +300,6 @@ class CommentRating(models.Model):
     )
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     rating = models.SmallIntegerField(default=Rating.NEUTRAL, choices=Rating.CHOICES)
-
-
-class Ipv4Logging(models.Model):
-    ip = models.CharField(max_length=15, unique=True, db_index=True)
-    banned = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.ip}"
-
-
-class Ipv4Range(models.Model):
-    ip = models.CharField(max_length=15, unique=True, db_index=True)
-    banned = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.ip}"
-
-
-class Ipv6Logging(models.Model):
-    ip = models.CharField(max_length=39, unique=True, db_index=True)
-    linked_to = models.ForeignKey(
-        Ipv4Logging, null=True, blank=True, on_delete=models.CASCADE
-    )
-    banned = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.ip}"
-
-
-class UserTracking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    linked_ipv4 = models.ForeignKey(
-        Ipv4Logging, null=True, blank=True, on_delete=models.CASCADE
-    )
-    linked_ipv6 = models.ForeignKey(
-        Ipv6Logging, null=True, blank=True, on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return f"{self.user.username} ({self.linked_ipv6.ip if self.linked_ipv6 else self.linked_ipv4.ip})"
 
 
 class PlaylistInfo(models.Model):
