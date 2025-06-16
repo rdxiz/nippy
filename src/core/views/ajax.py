@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from django.utils.text import Truncator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-import magic
+import puremagic
 
 from core.const import ALLOWED_VIDEO_TYPES, VIDEO_PARTS_PATH, VIDEO_PROCESSING_PATH
 from core.decorators import ajax_only, profile_required
@@ -306,7 +306,8 @@ def upload_video(request):
         return HttpResponse("", status=413)
 
     if chunk_number < 1:
-        file_type = magic.from_buffer(chunk.read(), mime=True)
+        file_type = puremagic.from_stream(chunk, mime=True)
+        print(file_type)
         if not file_type.startswith("video/"):
             video.delete()
             return HttpResponse("", status=400)
