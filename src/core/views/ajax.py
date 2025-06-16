@@ -295,10 +295,12 @@ def upload_video(request):
     chunk = request.FILES["file"]
     chunk_number = int(request.POST["chunk"])
     total_chunks = int(request.POST["total_chunks"])
-
-    video = Video.objects.get(
-        record_id=request.POST["video_id"], author=request.profile
-    )
+    try:
+        video = Video.objects.get(
+            record_id=request.POST["video_id"], author=request.profile
+        )
+    except Video.DoesNotExist:
+        return HttpResponse("", status=400)
 
     upload_id = f"{video.record_id}.part"
     if total_chunks > settings.TOTAL_CHUNKS:
@@ -308,7 +310,7 @@ def upload_video(request):
     if chunk_number < 1:
         file_type = puremagic.from_stream(chunk, mime=True)
         print(file_type)
-        if not file_type.startswith("video/"):
+        if not file_type.startswith("video/") and not file_type == "audio/x-matroska":
             video.delete()
             return HttpResponse("", status=400)
     file_path = os.path.join(VIDEO_PARTS_PATH, upload_id)
