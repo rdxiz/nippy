@@ -6,7 +6,7 @@ from django.templatetags.static import static
 from django.urls import reverse
 
 from core.templatetags.filters import format_duration, get_thumbnail
-from .models import Ipv4Logging, Ipv6Logging, Profile, Queue, CommentRating, Follow, PlaylistInfo, PlaylistVideo, Post, RateLimiter, ServerError, User, UserTracking, Video, Comment
+from .models import *
 
 admin.site.site_title = "Nippy site admin"
 admin.site.site_header = "Nippy administration"
@@ -83,9 +83,6 @@ admin.site.register(Comment)
 admin.site.register(CommentRating)
 admin.site.register(PlaylistInfo)
 admin.site.register(PlaylistVideo)
-admin.site.register(Ipv4Logging)
-admin.site.register(Ipv6Logging)
-admin.site.register(UserTracking)
 
 class ServerErrorAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):

@@ -26,4 +26,5 @@ ALLOWED_VIDEO_TYPES = [
     'video/x-ms-wmv', # .wmv
     'video/quicktime', # .mov
     'video/x-flv', # .flv
+    'video/x-matroska',
 ]

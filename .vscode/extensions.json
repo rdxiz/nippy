@@ -4,7 +4,5 @@
         "ms-python.debugpy",
         "ms-python.black-formatter",
         "batisteo.vscode-django",
-        "glenn2223.live-sass",
-        "sibiraj-s.vscode-scss-formatter",
     ]
 }

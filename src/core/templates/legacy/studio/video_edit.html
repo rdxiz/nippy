@@ -1,0 +1,44 @@
+{% extends "studio/studio.html" %}
+{% block layout_content %}
+<section class="tabs">
+    <a href="" class="tab-button{% if not page %} selected{% endif %}" id="btn-feed">
+        <span class="icon edit"></span> <span>Info and Settings</span>
+    </a>
+    <a href="" class="tab-button{% if page == 'videos' %} selected{% endif %}" id="btn-videos">
+        <span class="icon captions"></span> <span>Captions</span>
+    </a>
+</section>
+<section class="tab-manager">
+    <div id="settings-tab">
+        <header>
+            <h2>{{ video.title }}</h2>
+        </header>
+        <div class="video-details">
+            {% with video=video iframe=True %}
+                {% include 'legacy/widgets/player.html' %} 
+            {% endwith %}
+            <div class="stats">
+                <h4>Video information</h4>
+                <p><span class="vi-title">Uploaded time</span><span>{{ video.created_at }}</span></p>
+                <p><span class="vi-title">Duration</span><span>{{ video.duration|format_duration }}</span></p>
+                <p><span class="vi-title">Views</span> <span><span class="icon graph"></span> {{ video.views }}</span></p>
+                <p><span class="vi-title">Likes</span> <span><span class="icon like"></span> {{ video.positive_ratings }}</span></p>
+                <p><span class="vi-title">Dislikes</span> <span><span class="icon like"></span> {{ video.negative_ratings }}</span></p>
+                <p><span class="vi-title">Comments</span> <span><span class="icon comment"></span> {{ video.comments_count }}</span></p>
+                <p>
+                    <span class="vi-title">Video URL</span> 
+                    <input type="text" value="{{ video.get_absolute_url }}" disabled>
+            </div>
+        </div>
+        <div id="video-panel">
+            {% with tab=0 %}
+                {% include 'legacy/widgets/forms/video_upload.html' %}
+            {% endwith %}
+        </div>
+    </div>
+    <div id="captions-tab"></div>
+    
+    
+</section>
+
+{% endblock %}

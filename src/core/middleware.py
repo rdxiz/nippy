@@ -7,7 +7,7 @@ from django.utils.deprecation import MiddlewareMixin
 from django.utils.html import linebreaks
 from django.http.response import Http404
 from core.const import SESSION_KEY_PROFILE
-from core.models import Ipv4Logging, Ipv6Logging, Profile, ServerError, UserTracking
+from core.models import Profile, ServerError
 from nippy import settings
 
 

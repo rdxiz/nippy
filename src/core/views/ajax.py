@@ -41,7 +41,9 @@ def delete_post(request):
 def new_post(request):
     form = FeedForm(data=request.POST)
     if not form.is_valid():
-        return render(request, "widgets/forms/posting.html", {"form": form}, status=406)
+        return render(
+            request, "legacy/widgets/forms/posting.html", {"form": form}, status=406
+        )
 
     Post.objects.create(
         author=request.profile,
@@ -51,7 +53,7 @@ def new_post(request):
 
     return render(
         request,
-        "widgets/feed.html",
+        "legacy/widgets/feed.html",
         {
             "posts": Post.objects.select_related("author")
             .select_related("video")
@@ -71,7 +73,7 @@ def video_comments(request, video_id):
 
     return render(
         request,
-        "widgets/comment_list.html",
+        "legacy/widgets/comment_list.html",
         {
             "comments": comments,
         },
@@ -86,7 +88,7 @@ def update_video(request):
     if not form.is_valid():
         return render(
             request,
-            "widgets/forms/video_upload.html",
+            "legacy/widgets/forms/video_upload.html",
             {"form": form, "tab": current_tab},
             status=406,
         )
@@ -120,12 +122,14 @@ def update_video(request):
         raise e
         return render(
             request,
-            "widgets/forms/video_upload.html",
+            "legacy/widgets/forms/video_upload.html",
             {"form": form, "tab": current_tab},
             status=406,
         )
     return render(
-        request, "widgets/forms/video_upload.html", {"form": form, "tab": current_tab}
+        request,
+        "legacy/widgets/forms/video_upload.html",
+        {"form": form, "tab": current_tab},
     )
 
 
@@ -279,7 +283,9 @@ def video_related(request):
         .filter(status=VideoStatus.ONLINE, visibility=VideoVisibility.PUBLIC)[:9]
     )
     return render(
-        request, "widgets/player_end_screen.html", {"related_videos": related_videos}
+        request,
+        "legacy/widgets/player_end_screen.html",
+        {"related_videos": related_videos},
     )
 
 
@@ -301,7 +307,7 @@ def upload_video(request):
 
     if chunk_number < 1:
         file_type = magic.from_buffer(chunk.read(), mime=True)
-        if file_type not in ALLOWED_VIDEO_TYPES:
+        if not file_type.startswith("video/"):
             video.delete()
             return HttpResponse("", status=400)
     file_path = os.path.join(VIDEO_PARTS_PATH, upload_id)

@@ -23,8 +23,8 @@ MAXIMUM_VIDEO_SIZE_BYTES = eval(
 CHUNK_SIZE_BYTES = eval(environ.get("CHUNK_SIZE_BYTES", "20 * 1000 * 1024"))
 TOTAL_CHUNKS = eval(environ.get("TOTAL_CHUNKS", "3000/20"))
 MAXIMUM_VIDEO_DURATION = eval(environ.get("MAXIMUM_VIDEO_DURATION", "10 * 60"))
-FFMPEG_PATH = environ.get("FFMPEG_PATH", "C:/ffmpeg/bin/ffmpeg.exe")
-FFPROBE_PATH = environ.get("FFPROBE_PATH", "C:/ffmpeg/bin/ffprobe.exe")
+FFMPEG_PATH = environ.get("FFMPEG_PATH", "ffmpeg")
+FFPROBE_PATH = environ.get("FFPROBE_PATH", "ffprobe")
 MASTER_PASSWORD = environ.get("MASTER_PASSWORD", "nip::24")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +38,9 @@ SECRET_KEY = environ.get(
 )
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ.get("DEBUG", "True").lower() in ("true", "1", "t")
+
+DJANGO_VITE = {"default": {"dev_mode": DEBUG}}
+
 
 ALLOWED_HOSTS = environ.get("ALLOWED_HOSTS", "*").split(", ")
 CSRF_TRUSTED_ORIGINS = (
@@ -56,6 +59,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "huey.contrib.djhuey",
+    "django_vite",
     "core",
 ]
 
@@ -169,8 +173,12 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = PUBLIC_ROOT / "media"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "dist",
 ]
+
+if DEBUG:
+    STATICFILES_DIRS.append(BASE_DIR / "assets" / "public")
+    STATICFILES_DIRS.append(BASE_DIR / "assets")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

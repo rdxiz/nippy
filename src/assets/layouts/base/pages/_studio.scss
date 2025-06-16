@@ -1,0 +1,131 @@
+@use '../abstracts' as *;
+.grid-layout.studio {
+    grid-template-columns: 175px 1fr;
+    > .content {
+        >.tabs {
+            padding-top: 15px;
+        }
+    }
+    .tab-manager {
+        padding: 5px 20px;
+    }
+    select:disabled {
+        opacity: .6;
+    }
+    .video-details {
+        display: grid;
+        grid-template-columns: 45% auto;
+        .stats {
+            padding: 8px 20px;
+  font-size: 11px;
+  input {font-size: 11px;
+    height: initial;}
+  h4 {margin: 0; margin-bottom:15px;text-transform: uppercase;font-size:10px;color:$color-medium-light;}
+        }
+      }
+    .vi-title {
+        width: 50%;
+  display: inline-block;
+  
+    }
+
+    nav {
+        max-height: 0;
+    }
+
+    .video-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        line-height: 24px;
+
+        .title {
+            font-weight: 400;
+        }
+    }
+
+    .video-options {
+        margin-top: auto;
+        margin-bottom: 5px;
+    }
+
+    #videos-list-v {
+        .video-metadata {
+            font-size: 11px;
+            color: $color-medium-light;
+        }
+
+        .video-container {
+            padding: 15px 10px;
+            border-bottom: $border-default;
+            grid-template-columns: 180px auto 100px;
+        }
+    }
+
+    .video-thumb-container {
+        display: flex;
+
+        >a {
+            margin-left: 5px;
+            width: 100%;
+        }
+
+        >input {
+            margin-right: 8px;
+        }
+    }
+
+    .app-header {
+        padding: 12px 10px;
+
+        h3 {
+            font-size: 20px;
+            color: #444;
+            padding-left: 8px;
+        }
+
+        >div {
+            padding-top: 20px;
+
+            >input,
+            >select {
+                margin-right: 10px;
+            }
+        }
+
+        .top {
+            padding-top: 5px;
+            align-items: center;
+
+            form {
+                display: flex;
+                height: 33px;
+            }
+
+            input {
+                height: 100%;
+            }
+
+            .btn {
+                height: 100%;
+                border-left: 0;
+            }
+        }
+    }
+
+}
+
+.pagination {
+    background: #ececec;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    border-top: $border-default;
+
+    span,
+    button {
+        margin-right: 7px;
+    }
+
+    justify-content: flex-end;
+}

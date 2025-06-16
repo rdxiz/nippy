@@ -2,6 +2,7 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // THIS IS JUST AN EXAMPLE
     "version": "0.2.0",
     "configurations": [
         {
@@ -15,9 +16,38 @@
             "autoStartBrowser": false,
             "program": "${workspaceFolder}\\src\\manage.py",
             "env": {
-                "FFMPEG_PATH": "C:\\ffmpeg\\bin\\ffmpeg.exe",
-                "FFPROBE_PATH": "C:\\ffmpeg\\bin\\ffprobe.exe",
+                "FFMPEG_PATH": "ffmpeg",
+                "FFPROBE_PATH": "ffprobe",
+                "DEFAULT_DB_PWD": "755080f72c164f56b0038b2ebaacb8c2"
             }
+        },
+        {
+            "name": "Python Debugger: Huey",
+            "type": "debugpy",
+            "request": "launch",
+            "args": [
+                "run_huey"
+            ],
+            "django": true,
+            "autoStartBrowser": false,
+            "program": "${workspaceFolder}\\src\\manage.py",
+            "env": {
+                "FFMPEG_PATH": "ffmpeg",
+                "FFPROBE_PATH": "ffprobe",
+                "DEFAULT_DB_PWD": "755080f72c164f56b0038b2ebaacb8c2"
+            }
+        },
+        {
+            "name": "Vite",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}\\src",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }

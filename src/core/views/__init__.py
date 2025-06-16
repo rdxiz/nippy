@@ -40,7 +40,7 @@ def explore(request):
     videos = list(videos)
     return render(
         request,
-        "index.html",
+        "legacy/index.html",
         {
             "videos": videos,
             "featured_videos": featured_videos,
@@ -92,14 +92,14 @@ def index(request):
             ).order_by("-id")[:20]
             options["homepage_alert"] = True
         options["posts"] = posts
-        return render(request, "home.html", options)
+        return render(request, "legacy/home.html", options)
     return explore(request)
 
 
 def subscriptions(request):
     return render(
         request,
-        "subscriptions.html",
+        "legacy/subscriptions.html",
         {
             "total_subscriptions": request.profile.following_list.order_by("-id")[:100],
         },

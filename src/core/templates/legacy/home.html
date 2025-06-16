@@ -1,0 +1,34 @@
+{% extends "legacy/base.html" %}
+{% block content %}
+<main id="main">
+    <div class="grid-layout">
+        {% include 'legacy/widgets/guide.html' %}
+        <section class="content">
+            {% if homepage_alert %}
+            <div class="explore-card">
+                <div class="floating">
+                <span class="close">&times;</span>
+
+                </div>
+                <h2>Hi {{ request.profile.name }}! This is your {{ app_name }} homepage</h2>
+                <p>Right now your homepage has some recent videos uploaded on the plataform, but it could be so much better. It could have videos from your favorite shows, bands, blogs, topics, and more! When you follow channels. you'll see their latest videos here.</p>
+                
+                <div class="options">
+                    <span>So go add some channels and make this page your own! </span>
+                    <span class="btn primary"><a href="{% url 'core:view_explore' %}" class="btn-inside">Explore</a></span>
+                </div>
+            </div>
+            <script>const i=document.querySelector(".explore-card");i.querySelector(".close").addEventListener("click",()=>{i.remove()});</script>
+            {% endif %}
+            
+            <div id="feed">{% include 'legacy/widgets/feed.html' %}</div>
+        </section>
+        <aside class="side">
+            <div class="blog-widget">
+                <span class="title">Nippy indev</span>
+                <p>Hi, we are currently testing and constantly updating Nippy, be patient. You can help uploading videos to the plataform!</p>
+            </div>
+        </aside>
+    </div>
+</main>
+{% endblock %}

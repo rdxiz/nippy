@@ -119,7 +119,7 @@ def generate_thumbnail(input_path, thumbnail_path, timestamp, resolution):
         "-i",
         input_path,
         "-vf",
-        f"thumbnail,scale={resolution[0]}:{resolution[1]}",  # Scale and generate thumbnail
+        f"thumbnail,crop='ih*16/9:ih':'(iw-ih*16/9)/2':0,scale={resolution[0]}:{resolution[1]}",
         "-frames:v",
         "1",
         thumbnail_path,
@@ -167,13 +167,29 @@ def generate_thumbnails(
             )
 
 
+def fit_resolution(video_width, video_height, max_width, max_height):
+    video_ratio = video_width / video_height
+    target_ratio = max_width / max_height
+
+    if video_ratio > target_ratio:
+        new_width = max_width
+        new_height = int(max_width / video_ratio)
+    else:
+        new_height = max_height
+        new_width = int(max_height * video_ratio)
+
+    return new_width, new_height
+
+
 def convert_video(video, input_path, output_path, output_absolute_path):
     duration = get_video_duration(input_path)
     if duration > settings.MAXIMUM_VIDEO_DURATION:
         raise VideoTooLong
     video_width, video_height = get_video_resolution(input_path)
-    resolution = min(supported_resolutions, key=lambda res: abs(res[1] - video_height))
-    logger.info(f"Converting to {resolution[0]}x{resolution[1]}")
+    print(f"{video_width} x {video_height}")
+    best_res = min(supported_resolutions, key=lambda res: abs(res[1] - video_height))
+    resolution = fit_resolution(video_width, video_height, best_res[0], best_res[1])
+    print(resolution)
     tot_n_frames = get_total_n_frames(input_path)
     command = [
         FFMPEG_PATH,
@@ -183,14 +199,7 @@ def convert_video(video, input_path, output_path, output_absolute_path):
         "-i",
         input_path,
         "-vf",
-        ", ".join(
-            [
-                "scale=w=trunc(ih*dar/2)*2:h=trunc(ih/2)*2",
-                "setsar=1/1",
-                f"scale=w={resolution[0]}:h={resolution[1]}:force_original_aspect_ratio=1",
-                f"pad=w={resolution[0]}:h={resolution[1]}:x=(ow-iw)/2:y=(oh-ih)/2:color=#000000",
-            ]
-        ),
+        f"scale={best_res[0]}:{best_res[1]}",
         "-fpsmax",
         "24" if resolution[1] > 144 else "15",
         "-c:v",

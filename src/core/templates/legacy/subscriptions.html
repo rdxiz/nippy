@@ -1,0 +1,30 @@
+{% extends "legacy/base.html" %}
+{% block content %}
+<main id="main">
+    <div class="grid-layout">
+        {% include 'legacy/widgets/guide.html' %}
+        <section class="content">
+            <div class="grid">
+                {% for subs in total_subscriptions %}
+                    {% with profile=subs.following %}
+                    <div>
+                        <a href="{{ profile.get_url }}">
+                            <div class="guide-item">
+                                <img src="{{ profile|avatar:100 }}" width="18">
+                                <span>{{ profile.name }}</span>
+
+                            </div>
+                        </a>
+                    </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        
+        </section>
+        <aside class="side">
+            <section class="branded"></section>
+
+        </aside>
+    </div>
+</main>
+{% endblock %}

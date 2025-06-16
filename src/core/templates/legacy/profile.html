@@ -1,0 +1,189 @@
+{% extends "legacy/base.html" %}
+{% block content %}
+<main id="main">
+    <div class="grid-layout profile">
+        {% include 'legacy/widgets/guide.html' %}
+        <section class="content">
+            {% if my_profile %}
+            <section class="profile-options">
+                <a href="{% url 'core:subscriptions' %}">
+                    <span class="icon account"></span>
+                    {{ request.profile.followers_count }} followers
+                </a>
+                <a href="{% url 'core:my_videos' %}">
+                    <span class="icon ondemand-video"></span>
+                    {{ request.profile.view_count }} views
+                </a>
+                <a href="{% url 'core:my_videos' %}">
+                    <span class="icon playlist"></span>
+                    Video Manager
+                </a>
+                <a class="to-right" href="?view_as=public">
+                    <span class="icon world"></span>
+                    View as public
+                </a>
+            </section>
+            {% endif %}
+            <header id="profile-header">
+                <section id="profile-cover">
+                    
+                <div class="overlay">
+                    {% if my_profile %}
+                        <button class="btn header">
+                            <span class="icon edit"></span>
+                        </button>
+                    {% endif %}
+                    <ul class="link-list">
+                        <li>
+                            <a href="https://google.com">
+                                <img src="https://google.com/favicon.ico" width="16">
+                                <span>google.com</span>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="https://google.com">
+                                <img src="https://google.com/favicon.ico" width="16">
+                            </a>
+                            <a href="https://google.com">
+                                <img src="https://google.com/favicon.ico" width="16">
+                            </a>
+                            <a href="https://google.com">
+                                <img src="https://google.com/favicon.ico" width="16">
+                            </a>
+                            
+                        </li>
+                    </ul>
+                </div>
+                    <div class="avatar">
+                        <div class="overlay">
+                            <button class="btn header">
+                                <span class="icon edit"></span>
+                            </button>
+                        </div>
+                        <img width="100" src="{{ profile|avatar:100 }}">
+                        
+                    </div>
+                    
+                </section>
+                <section class="content">
+                    <span class="profile-name">{{ profile.name }}</span>
+                    <div class="follow-container" data-profile-id="{{ profile.record_id }}">
+                        
+                        {% if profile.record_id == request.profile.record_id %}
+                            <span class="btn follow">
+                                <a href="{% url 'core:my_videos' %}" class="btn-inside">
+                                    <span class="icon settings"></span>
+                                    <span>Settings</span>
+                                </a>
+                            </span>
+                        {% else %}
+                            <button class="btn follow"{% if is_following %} data-switch{% endif %}>
+                                <span class="false">Follow</span>
+                                <span class="true">Following</span>
+                            </button>
+                            <span class="follow-count">{{ profile.followers_count }}</span>
+                        {% endif %}
+                        
+                        
+                    </div>
+                </section>
+            </header>
+            <section class="tabs">
+                <a href="{{ profile.get_url }}" class="tab-button{% if not page %} selected{% endif %}" id="btn-feed">
+                    <span class="icon home-feed"></span>
+                </a>
+                <a href="{{ profile.get_url }}/videos" class="tab-button{% if page == 'videos' %} selected{% endif %}" id="btn-videos">
+                    Videos
+                </a>
+                <a href="{{ profile.get_url }}/about" class="tab-button{% if page == 'about' %} selected{% endif %}" id="btn-about">
+                    About
+                </a>
+            </section>
+            <section class="tab-manager">
+                <div id="feed-tab"{% if page %} data-hidden{% endif %}>
+                    {% if request.profile.record_id == profile.record_id %}
+                    <div class="posting-container">
+                        <div class="posting-bubble">
+                            <a href="{{ profile.get_url }}" class="link">
+                                <div class="bubble">
+                                    <img src="{{ profile|avatar:100 }}" width="28">
+                                    <span class="overlay"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="posting-content">{% include 'legacy/widgets/forms/posting.html' %}</div>
+                    </div>
+                    {% endif %}
+                    <div id="feed">{% include 'legacy/widgets/feed.html' %}</div>
+                </div>
+                <div id="videos-tab"{% if page != 'videos' %} data-hidden{% endif %}>
+                    <div id="videos-grid">
+                        {% for video in videos %}
+                        <div class="video-container">
+                            <div class="video-thumb-container">
+                                <a href="{% url 'core:watch' %}?v={{ video.get_id }}">
+                                    <div class="video-thumb">
+                                        <img src="{% fallback_thumb video.thumbnail%}">
+                                        <div class="overlay">
+                                            <span class="video-time">{{ video.duration|format_duration }}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="video-info">
+
+                                <a href="{% url 'core:watch' %}?v={{ video.get_id }}" class="title">
+                                    {{ video.title|truncatechars:58 }}
+                                </a>
+                                <div class="video-metadata">
+                                    <span class="video-views">{{ video.views|intcomma }} views</span> 
+                                    <span class="metadata-separator">•</span>
+                                    <span class="video-created-at">{{ video.created_at|time_ago }}</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="about-tab"{% if page != 'about' %} data-hidden{% endif %}></div>
+                
+            </section>
+        </section>
+        <aside class="side">
+            {% if related_profiles %}
+            <section class="branded">
+                <a class="branded-title" href="/">Related Channels</a>
+                <nav>
+                   
+                {% for subs in related_profiles %}
+        {% with profile=subs.following %}
+
+                    <ul>
+                        <a href="{{ profile.get_url }}">
+                            <div class="branded-pfp">
+                                <img src="{{ profile|avatar:100 }}" width="32">
+                            </div>
+                        </a>
+                        <div class="branded-profile" data-profile-id="{{ profile.record_id }}">
+                            <a href="{{ profile.get_url }}" class="branded-name">{{ profile.name }}</a>
+                            {% if profile.record_id != request.profile.record_id %}
+                            <button class="btn follow"{% if subs.is_following %} data-switch{% endif %}>
+                                <span class="false">Follow</span>
+                                <span class="true">Following</span>
+                            </button>
+                            {% endif %}
+                            
+                        </div>
+                    </ul>
+                    {% endwith %}
+                    {% endfor %}
+                </nav>
+            </section>   
+            {% endif %}
+            
+        </aside>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,399 @@
+@use 'abstracts' as *;
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
+}
+
+.error::before {
+  content: '';
+  display: inline-block;
+  background: no-repeat url(img/www-hitchhiker-vflmnaCdT.png) -269px -37px;
+  width: 32px;
+  height: 35px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.error {
+  align-items: center;
+  display: flex;
+  padding: 0px 50px;
+  background-color: $color-warning;
+  border-color: $color-warning-dark;
+  color: $color-white;
+  font-size: 13px;
+  font-weight: bold;
+  text-shadow: 0 0 1px rgba($text-color, .45);
+  text-indent: 10px;
+  // animation: fadeOut 1s linear;
+  // animation-delay: 3s;
+  height: 29px;
+}
+
+b {
+  color: $text-color-darker;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  font-family: arial, sans-serif;
+  font-size: 11px;
+  color: $text-color;
+  background: $color-white;
+  padding: 0;
+  margin: 0;
+}
+
+#header {
+  display: grid;
+  // padding: 10px 14px;
+  padding: 10px 38px;
+  height: 30px;
+  align-items: center;
+  background: $header-bg;
+  box-shadow: 10px $text-color;
+  border-bottom: $border-default;
+  grid-template-columns: 15% 55% 30%;
+
+  nav {
+    display: flex;
+    align-items: center;
+
+    ul {
+      display: flex;
+      padding: 0px 5px;
+      margin: 0;
+    }
+
+    .upload-menu {
+      padding: 0px 25px;
+
+    }
+  }
+
+  .search-container {
+    // margin-left: 99px;
+    display: grid;
+    grid-template-columns: 80% 20%;
+
+
+    form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 29px;
+
+      >div {
+        margin-bottom: 0;
+      }
+
+
+      input[type="text"] {
+        height: 100%;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      button {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        min-width: 65px;
+        border-left: 0px;
+      }
+    }
+  }
+
+  .my-profile-container {
+    justify-content: flex-end;
+
+    >ul {
+      overflow: hidden;
+    }
+  }
+}
+
+#header,
+#main {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+#main {
+  font-size: 12px;
+
+}
+
+@media (max-width: 800px) {
+  .grid-layout.watch, .grid-layout.studio {
+    grid-template-columns: 1fr;
+
+  }
+
+  .grid-layout.watch>.side {
+    order: 2;
+  }
+
+  .grid-layout.watch>.guide {
+    order: 3;
+  }
+
+  .featured-section {
+    grid-template-columns: auto;
+  }
+
+  #basic-info {
+
+    grid-template-columns: 1fr;
+  }
+
+  #upload-progress-bar {
+    width: 100%;
+  }
+
+  .profile-switcher {
+    padding: 40px 20px !important;
+  }
+
+  #header {
+    padding-left: 20px !important;
+    padding-right: 5px !important;
+    grid-template-columns: 25% 45% 30%;
+
+    // .search-container{display: none;}
+    .upload-menu {
+      display: none;
+    }
+
+    .search-container {
+      grid-template-columns: 100%;
+
+      form button {
+        min-width: inherit;
+      }
+    }
+
+  }
+
+  #main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+
+
+.logo {
+  background: no-repeat url(svg/nippylogo.svg);
+  width: 84px;
+  height: 30px;
+  background-size: contain;
+  font-size: 0;
+}
+
+#nav-my-profile[data-hidden] {
+  max-height: 0;
+}
+
+#nav-my-profile {
+  background: $nav-my-profile-bg;
+  display: flex;
+  font-size: 12px;
+  overflow: hidden;
+  max-height: 222px;
+  transition: max-height .5s ease;
+
+  >div {
+    padding: 10px 8px;
+    padding-bottom: 20px;
+  }
+
+  .playlist-container {
+    margin-left: auto;
+  }
+
+  .nav-container {
+    padding-right: 100px;
+  }
+
+  nav {
+    ul {
+      padding: 2px 0px;
+      margin: 0;
+    }
+  }
+
+  a {
+    color: $link-color-lighter;
+  }
+}
+
+
+
+label {
+  font-weight: bold;
+  margin: 0 0 .5em;
+  display: block;
+  font-size: 12px;
+}
+
+form>div {
+  margin-bottom: 10px;
+}
+
+select {
+  height: 30px;
+  min-width: 80px;
+  font-size: 12px;
+  padding: 5px 10px;
+  font-family: arial, sans-serif;
+}
+
+.explore-card {
+  border-bottom: $border-default;
+  padding: 24px 48px;
+  font-size: 13px;
+  margin-bottom: 8px;
+  position: relative;
+
+  .floating {
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 0;
+
+    top: 0;
+  }
+
+  .close {
+    cursor: pointer;
+
+    padding: 12px 18px;
+
+  }
+
+  p {
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    margin: 0;
+
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn {
+    margin-left: 16px;
+  }
+}
+
+.blog-widget {
+  background: $blog-widget-background;
+  border: 1px solid $blog-widget-border-color;
+  border-radius: 3px;
+  padding: 12px 15px 5px;
+
+  .title {
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    color: $blog-widget-title-color;
+
+  }
+}
+
+[data-loading] {
+  opacity: .4;
+  transition: opacity .3s ease-out;
+  pointer-events: none;
+}
+
+[data-hidden] {
+  display: none;
+}
+
+[data-force-opacity] {
+  opacity: 1 !important;
+}
+
+.app-header {
+  background: #ececec;
+  padding: 12px 14px;
+  align-items: center;
+  border-bottom: $border-default;
+
+  >div {
+    display: flex;
+  }
+
+  .nav {
+    display: flex;
+    margin-left: auto;
+  }
+
+  h3 {
+    font-size: 16px;
+    color: $text-color;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+.app-content {
+  padding: 4px 16px;
+  >section {
+    padding: 8px 0;
+  }
+  h3 {
+    font-size: 13px;
+  }
+  h3, b {
+    color: $text-color;
+  }
+  .title {
+    width: 160px;
+    min-width: 160px;
+    margin-right: 56px;
+    font-size: 13px;
+  opacity: .8;
+  }
+  .settings-section {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    line-height: 18px;
+  }
+}
+.h-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

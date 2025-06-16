@@ -8,9 +8,11 @@ public
 **/migrations
 # Backup files # 
 *.bak 
-
+*.container
+install.sh
 # If you are using PyCharm # 
 # User-specific stuff
+.idea/**/workspace.xml
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
@@ -138,3 +140,5 @@ GitHub.sublime-settings
 
 # Node 
 **/node_modules
+.vscode/launch.json
+.vscode/launch.json
