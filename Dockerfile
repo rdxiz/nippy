@@ -18,4 +18,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN mkdir -p /opt/nippy/public/static
 
-RUN npm install && npm run build
+RUN npm install
+
+RUN npm run build
