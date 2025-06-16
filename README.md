@@ -13,13 +13,25 @@ I'm changing the site stack for the time being, download the first commit versio
 - Mobile friendly
 
 ## Instalation
-set up docker container, execute and run these commands:
+set up the containers, execute and run these commands:
 
 `docker exec -it {container_id} python manage.py makemigrations core && python manage.py migrate`
 
 `docker exec -it {container_id} npm run build`
 
-`docker exec -it {container_id} DJANGO_SUPPRESS_SYSTEM_CHECKS=django_vite.W001 python manage.py collectstatic`
+to build the static folder:
+
+```
+docker run --rm \
+  -v ./src:/opt/nippy/src:Z \
+  -w /opt/nippy/src \
+  node:20 \
+  sh -c "npm ci && npm run build"
+``` 
+
+`docker exec -it {container_id} python manage.py collectstatic`
+
+and restart all the containers.
 
 ## Development
 `cd src`

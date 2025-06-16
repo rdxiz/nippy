@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% comment %} <link id="stylesheet" href="{% static 'css/styles.css' %}?78" media="screen, projection" rel="Stylesheet" type="text/css"> {% endcomment %}
-    {% vite_asset 'styles.scss' %}
+    <link rel="stylesheet" type="text/css" href="{% vite_asset_url 'styles.scss' %}" />
     <title>{{ app_name }}</title>
 
     <script>
