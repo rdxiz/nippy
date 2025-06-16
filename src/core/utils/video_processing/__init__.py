@@ -188,7 +188,10 @@ def convert_video(video, input_path, output_path, output_absolute_path):
     video_width, video_height = get_video_resolution(input_path)
     print(f"{video_width} x {video_height}")
     best_res = min(supported_resolutions, key=lambda res: abs(res[1] - video_height))
-    resolution = fit_resolution(video_width, video_height, best_res[0], best_res[1])
+    if best_res[0] >= video_width and best_res[1] >= video_height:
+        resolution = video_width, video_height
+    else:
+        resolution = fit_resolution(video_width, video_height, best_res[0], best_res[1])
     print(resolution)
     tot_n_frames = get_total_n_frames(input_path)
     command = [
