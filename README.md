@@ -15,7 +15,7 @@ I'm changing the site stack for the time being, download the first commit versio
 ## Instalation
 set up the containers, execute and run these commands:
 
-`docker exec -it {container_id} python manage.py makemigrations core && python manage.py migrate`
+`docker exec -it {container_id} sh -c "python manage.py makemigrations core && python manage.py migrate"`
 
 `docker exec -it {container_id} npm run build`
 
