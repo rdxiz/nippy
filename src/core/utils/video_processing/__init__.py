@@ -60,8 +60,11 @@ def get_video_resolution(input_path):
         ]
         result = sp.run(command, stdout=sp.PIPE, stderr=sp.PIPE, check=True)
         resolution = result.stdout.decode().strip()
-
-        width, height = map(int, resolution.split(","))
+        parts = [p for p in resolution.split(",") if p]
+        if len(parts) < 2:
+            logger.error(f"Unexpected ffprobe output: '{resolution}'")
+            return None, None
+        width, height = map(int, parts[:2])
         return width, height
     except sp.CalledProcessError as e:
         logger.error(f"Error getting video resolution: {e}")
@@ -186,13 +189,11 @@ def convert_video(video, input_path, output_path, output_absolute_path):
     if duration > settings.MAXIMUM_VIDEO_DURATION:
         raise VideoTooLong
     video_width, video_height = get_video_resolution(input_path)
-    print(f"{video_width} x {video_height}")
     best_res = min(supported_resolutions, key=lambda res: abs(res[1] - video_height))
     if best_res[0] >= video_width and best_res[1] >= video_height:
         resolution = video_width, video_height
     else:
         resolution = fit_resolution(video_width, video_height, best_res[0], best_res[1])
-    print(resolution)
     tot_n_frames = get_total_n_frames(input_path)
     command = [
         FFMPEG_PATH,
