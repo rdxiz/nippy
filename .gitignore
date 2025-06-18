@@ -4,8 +4,8 @@
 *.pyc
 __pycache__
 db.sqlite3
-public
 **/migrations
+/public
 # Backup files # 
 *.bak 
 *.container

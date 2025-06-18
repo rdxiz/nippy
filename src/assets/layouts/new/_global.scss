@@ -1,0 +1,118 @@
+@use "abstracts" as *;
+
+
+@mixin global-vars {
+  --f: arial, sans-serif;
+  --f-size: 10pt;
+  --max-width: 1800px;
+}
+
+@mixin light-theme-vars {
+  --c-bg: #fff;
+  --c-shadow: #333;
+  --c-text: #333;
+  --c-text-darker: #333;
+  --c-header: #f1f1f1;
+  --c-header-text: #919191;
+  --c-primary: #af2b26;
+  --c-primary-dark: #942422;
+  --c-primary-highlight: #cc181e;
+  --c-primary-light: #ffbfbd;
+  --c-warning: #a93630;
+  --c-warning-text: #fff;
+  --c-warning-dark: #a11b1b;
+  --c-warning-alt-dark: #913d37;
+  --c-warning-alt: #c95145;
+  --c-border: #e8e8e8;
+  --border: 1px solid var(--c-border);
+  --c-btn-secondary: #fcfcfc;
+  --c-btn-secondary-dark: #f8f8f8;
+  --c-btn-secondary-darker-1: #eee;
+  --c-btn-secondary-darker-2: #d3d3d3;
+  --c-btn-secondary-darker-3: #c6c6c6;
+  --c-btn: #5384be;
+  --c-btn-dark: #3f76b7;
+  --c-btn-dark-light: #3d71b0;
+  --c-btn-darker: #325e92;
+  --c-link: #3c73a8;
+  --c-link-lighter: #2793e6;
+  --c-input-border: #d9d9d9;
+  --c-input-border-top: #c0c0c0;
+  --c-input-focus-border: #1c62b9;
+}
+
+[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+button, input[type=submit] {
+  all: unset;
+}
+
+input[type="search"] {
+  outline: none;
+}
+
+:root {
+  @include global-vars;
+  @include light-theme-vars;
+}
+
+body {
+  font-family: var(--f);
+  font-size: var(--f-size);
+  color: var(--c-text);
+  background: var(--c-bg);
+  padding: 0;
+  margin: 0;
+}
+
+
+.logo {
+  background: no-repeat url(svg/nippylogo.svg);
+  width: 84px;
+  height: 30px;
+  background-size: contain;
+  font-size: 0;
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.error::before {
+  content: "";
+  display: inline-block;
+  background: no-repeat url(img/www-hitchhiker-vflmnaCdT.png) -269px -37px;
+  width: 32px;
+  height: 35px;
+}
+
+.error {
+  align-items: center;
+  display: flex;
+  padding: 0px 50px;
+  background: var(--c-warning);
+  border: var(--c-warning-dark);
+  color: var(--c-warning-text);
+  font-size: 13px;
+  font-weight: bold;
+  text-indent: 10px;
+  height: 29px;
+}
+
+b {
+  color: var(--c-text-darker);
+}
+
+a {
+  text-decoration: none;
+  color: var(--c-link);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+

@@ -3,9 +3,7 @@
 Video sharing software like YT
 
 ## Note
-This project is a work in progress, use it for your own risk.
-
-I'm changing the site stack for the time being, download the first commit version if you don't want to deal with this
+This project is a work in progress, use it for your own risk, Most things won't work now because I'm rewriting the frontend and experimenting with some other things. You can download the version from the first commit and things will "work"
 
 ## Features
 - "Real time" video processing with FFMPEG with process percentage and queue using Huey

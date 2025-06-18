@@ -1,0 +1,19 @@
+.input {
+  font-size: 1.3em;
+  direction: ltr;
+  display: inline-block;
+  margin: 0;
+  padding: 0 8px;
+  background: #fff;
+  color: var(--c-text);
+  border: 1px solid var(--c-input-border);
+  border-top: 1px solid var(--c-input-border-top);
+  box-sizing: border-box;
+  border-radius: 1px;
+  font-family: arial, sans-serif;
+  transition: border-color .2s ease;
+  &:focus {
+    border: 1px solid var(--c-input-focus-border);
+  box-shadow: inset 0 1px 2px rgba(#333, 0.3);
+  }
+}

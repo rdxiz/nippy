@@ -1,0 +1,98 @@
+@use '../abstracts' as *;
+
+#{"#{$root}"} > header {
+ position: sticky;
+top: 0;
+display: flex;
+justify-content: center;
+background-color: var(--c-header);
+font-size: 0.9em;
+z-index: 90;
+box-shadow: 10px var(--c-shadow);
+border-bottom: var(--border);
+color: var(--c-header-text);
+
+>nav {
+  align-items: center;
+  padding: .2em 4em;
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  justify-content: space-between;
+
+  .s-container {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    justify-content: left;
+    padding-left: 5.5em;
+  }
+
+  .s-form {
+    flex: 1;
+    max-width: 550px;
+
+    form {
+      display: flex;
+      height: 100%;
+    }
+
+    input[type=search] {
+      flex: 1;
+      width: 0;
+      padding: 4px 8px;
+      font-size: 1.5em;
+    }
+
+    button {
+      border-left: none;
+      flex: 1;
+      max-width: 45px;
+    }
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+
+    li {
+      margin: 0.7em 0.5em;
+    }
+  }
+}
+}
+
+#{"#{$root}"} > main {
+ padding: 0 45px;
+
+}
+
+.layout {
+  display: flex;
+  justify-content: center;
+
+  >section {
+    flex: 0 0 auto;
+  }
+
+  .content {
+    flex: 1;
+    max-width: var(--max-width);
+  }
+
+  .guide {
+    border-right: var(--border);
+    padding-top: 20px;
+    padding-left: 5px;
+  }
+
+  .side {
+    border-left: var(--border);
+    padding: 16px;
+  }
+}

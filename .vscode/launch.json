@@ -34,7 +34,8 @@
             "env": {
                 "FFMPEG_PATH": "ffmpeg",
                 "FFPROBE_PATH": "ffprobe",
-                "DEFAULT_DB_PWD": "755080f72c164f56b0038b2ebaacb8c2"
+                "DEFAULT_DB_PWD": "755080f72c164f56b0038b2ebaacb8c2",
+                "MAXIMUM_VIDEO_DURATION":"60*60"
             }
         },
         {

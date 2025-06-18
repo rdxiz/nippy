@@ -1,0 +1,20 @@
+{% load django_vite %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% vite_asset_url 'new.scss' %}" />
+    <title>{{ app_name }}</title>
+    {% vite_hmr_client %}
+</head>
+<body>
+    <noscript>
+    <ul class="messages">
+        <li class="error"><div>JavaScript is required to load this page.</div><div class="close"></div></li>
+    </ul>
+</noscript>
+    <div id="app"></div>
+    {% vite_asset 'Main.jsx' %}
+</body>
+</html>
